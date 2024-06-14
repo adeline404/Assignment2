@@ -1,0 +1,26 @@
+{
+  "name": "assignment2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adeline404/Assignment2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adeline404/Assignment2/issues"
+  },
+  "homepage": "https://github.com/adeline404/Assignment2#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cros": "^1.0.1",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1",
+    "node": "^22.3.0"
+  }
+}
