@@ -81,7 +81,6 @@ exports.delete = (req, res) => {
                 acknowledged: true,
                 deletedCount: 1
             });
-
         })
         .catch(err => res.status(500).send({
             message: `Could not delete product with id ${req.params.id}`
