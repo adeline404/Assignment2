@@ -1,5 +1,6 @@
 const Category = require("../models/category.model");
 
+// add a new category
 exports.create = (req, res) => {
   const category = new Category(req.body);
   category.save()
@@ -9,6 +10,7 @@ exports.create = (req, res) => {
     }));
 };
 
+// get all categories
 exports.findAll = (req, res) => {
   let name = req.query.name;
   let condition = name ? { name: { $regex: new RegExp(name, 'i') } } : {};
@@ -19,6 +21,7 @@ exports.findAll = (req, res) => {
     }));
 };
 
+// get a category by id
 exports.findOne = (req, res) => {
   Category.findById(req.params.id)
     .then(category => {
@@ -32,6 +35,7 @@ exports.findOne = (req, res) => {
     }));
 };
 
+// update a category by id
 exports.update = (req, res) => {
   Category.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false })
     .then(category => {
@@ -45,6 +49,7 @@ exports.update = (req, res) => {
     }));
 };
 
+// remove a category by id
 exports.delete = (req, res) => {
   Category.findByIdAndDelete(req.params.id)
     .then(category => {
@@ -58,6 +63,7 @@ exports.delete = (req, res) => {
     }));
 };
 
+// remove all categories
 exports.deleteAll = (req, res) => {
   Category.deleteMany()
     .then(category => {

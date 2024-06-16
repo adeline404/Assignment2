@@ -1,9 +1,11 @@
 const Product = require('../models/product.model');
 const Category = require('../models/category.model');
 
+// add a new Product
 exports.create = async (req, res) => {
     try {
         const { name, description, price, quantity, category } = req.body;
+        // ensure category is valid
         let foundCategory = await Category.findOne({ name: category });
         if (!foundCategory) {
             return res.status(400).send({ message: `Category "${category}" not found` });
@@ -18,7 +20,9 @@ exports.create = async (req, res) => {
     }
 };
 
+// get all Products
 exports.findAll = (req, res) => {
+    // get Products by query if necessary
     let name = req.query.name;
     let condition = name ? { name: { $regex: new RegExp(name, 'i') } } : {};
     Product.find(condition)
@@ -28,6 +32,7 @@ exports.findAll = (req, res) => {
         }));
 };
 
+// get a Product by id
 exports.findOne = (req, res) => {
     Product.findById(req.params.id)
         .then(product => {
@@ -41,16 +46,18 @@ exports.findOne = (req, res) => {
         }));
 };
 
+// update a Product by id
 exports.update = (req, res) => {
     const { category, ...updateData } = req.body;
     if (category) {
+        // ensure category is valid
         let foundCategory = Category.findOne({ name: category });
         if (!foundCategory) {
             return res.status(400).send({ message: `Category "${category}" not found` });
         }
         updateData.category = category;
     }
-    
+
     Product.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false })
         .then(product => {
             if (!product) return res.status(404).send({
@@ -63,6 +70,7 @@ exports.update = (req, res) => {
         }));
 };
 
+// remove a Product by id
 exports.delete = (req, res) => {
     Product.findByIdAndDelete(req.params.id)
         .then(product => {
@@ -76,6 +84,7 @@ exports.delete = (req, res) => {
         }));
 };
 
+// remove all Products
 exports.deleteAll = (req, res) => {
     Product.deleteMany()
         .then(product => {
