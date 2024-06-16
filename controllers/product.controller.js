@@ -77,7 +77,11 @@ exports.delete = (req, res) => {
             if (!product) return res.status(404).send({
                 message: `Product not found with id ${req.params.id}`
             });
-            res.send({ message: "Product deleted successfully!" });
+            res.send({
+                acknowledged: true,
+                deletedCount: 1
+            });
+
         })
         .catch(err => res.status(500).send({
             message: `Could not delete product with id ${req.params.id}`
@@ -88,7 +92,7 @@ exports.delete = (req, res) => {
 exports.deleteAll = (req, res) => {
     Product.deleteMany()
         .then(product => {
-            res.send({ message: `${product.deletedCount} Products deleted successfully!` });
+            res.send({ acknowledged: true, message: `${product.deletedCount} Products deleted successfully!` });
         })
         .catch(err => res.status(500).send({
             message: "Some error occurred while removing all products."
